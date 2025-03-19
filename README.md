@@ -161,7 +161,7 @@ If this project aids your work, please cite it as:
 @misc{open-rs,
   title = {Reinforcement Learning for Reasoning in Small LLMs: What Works and What Doesn't},
   url = {https://github.com/knoveleng/open-rs},
-  author = {Knovel Engineering Lab},
+  author = {Quy-Anh Dang, Chris Ngo},
   month = {March},
   year = {2025}
 }
