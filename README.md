@@ -10,7 +10,7 @@ We focus on a 1.5-billion-parameter model, `DeepSeek-R1-Distill-Qwen-1.5B`, trai
 
 These results showcase RL-based fine-tuning as a cost-effective approach for small LLMs, making reasoning capabilities accessible in resource-limited settings. We open-source our code, models, and datasets to support further research.
 
-![Performance Metrics](assets/performances.png)
+![Performance Metrics](assets/overall.png)
 
 ## Resources
 
@@ -18,7 +18,7 @@ These results showcase RL-based fine-tuning as a cost-effective approach for sma
 - [Open-RS1](https://huggingface.co/knoveleng/Open-RS1)
 - [Open-RS2](https://huggingface.co/knoveleng/Open-RS2)
 - [Open-RS3](https://huggingface.co/knoveleng/Open-RS3)
-- Additional models in training: [knoveleng/OpenRS-GRPO](https://huggingface.co/knoveleng/OpenRS-GRPO), [quyanh/OpenRS-GRPO](https://huggingface.co/quyanh/OpenRS-GRPO)
+- Additional models in training: [knoveleng/OpenRS-GRPO](https://huggingface.co/knoveleng/OpenRS-GRPO/commits/main), [quyanh/OpenRS-GRPO](https://huggingface.co/quyanh/OpenRS-GRPO/commits/main)
 
 ### Datasets
 - [open-s1](https://huggingface.co/datasets/knoveleng/open-s1)
@@ -161,7 +161,7 @@ If this project aids your work, please cite it as:
 @misc{open-rs,
   title = {Reinforcement Learning for Reasoning in Small LLMs: What Works and What Doesn't},
   url = {https://github.com/knoveleng/open-rs},
-  author = {Quy-Anh Dang, Chris Ngo},
+  author = {Quy-Anh Dang and Chris Ngo},
   month = {March},
   year = {2025}
 }
