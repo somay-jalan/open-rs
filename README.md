@@ -1,6 +1,6 @@
 # Open RS
 
-This repository hosts the code and datasets for the **Open RS** project, accompanying the paper *Reinforcement Learning for Reasoning in Small LLMs: What Works and What Doesn’t*. The project explores enhancing reasoning capabilities in small large language models (LLMs) using reinforcement learning (RL) under resource-constrained conditions.
+This repository hosts the code and datasets for the **Open RS** project, accompanying the paper [*Reinforcement Learning for Reasoning in Small LLMs: What Works and What Doesn’t*](https://arxiv.org/abs/2503.16219). The project explores enhancing reasoning capabilities in small large language models (LLMs) using reinforcement learning (RL) under resource-constrained conditions.
 
 We focus on a 1.5-billion-parameter model, `DeepSeek-R1-Distill-Qwen-1.5B`, trained on 4 NVIDIA A40 GPUs (48 GB VRAM each) within 24 hours. By adapting the Group Relative Policy Optimization (GRPO) algorithm and leveraging a curated, compact mathematical reasoning dataset, we conducted three experiments to assess performance and behavior. Key findings include:
 
@@ -158,11 +158,13 @@ Thanks to the Hugging Face team for their [open-r1](https://github.com/huggingfa
 ## Citation
 If this project aids your work, please cite it as:
 ```
-@misc{open-rs,
-  title = {Reinforcement Learning for Reasoning in Small LLMs: What Works and What Doesn't},
-  url = {https://github.com/knoveleng/open-rs},
-  author = {Quy-Anh Dang and Chris Ngo},
-  month = {March},
-  year = {2025}
+@misc{dang2025reinforcementlearningreasoningsmall,
+      title={Reinforcement Learning for Reasoning in Small LLMs: What Works and What Doesn't}, 
+      author={Quy-Anh Dang and Chris Ngo},
+      year={2025},
+      eprint={2503.16219},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2503.16219}, 
 }
 ```
