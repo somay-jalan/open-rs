@@ -1,4 +1,5 @@
 # Open RS
+> Please press ⭐ button if you feel helpful!
 
 This repository hosts the code and datasets for the **Open RS** project, accompanying the paper [*Reinforcement Learning for Reasoning in Small LLMs: What Works and What Doesn’t*](https://arxiv.org/abs/2503.16219). The project explores enhancing reasoning capabilities in small large language models (LLMs) using reinforcement learning (RL) under resource-constrained conditions.
 
