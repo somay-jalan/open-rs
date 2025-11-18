@@ -175,7 +175,7 @@ cython_debug/
 
 # Ignore local files
 notebooks/
-data/
+checkpoints_data/
 sh/
 wandb/
 run_logs/
