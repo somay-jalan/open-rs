@@ -18,14 +18,15 @@ import random
 
 from lighteval.metrics.dynamic_metrics import (
     ExprExtractionConfig,
-    IndicesExtractionConfig,
     LatexExtractionConfig,
-    multilingual_extractive_match_metric,
+    MultilingualExtractiveMatchMetric,
 )
+from lighteval.metrics.utils.extractive_match_utils import IndicesExtractionConfig
 from lighteval.tasks.lighteval_task import LightevalTaskConfig
 from lighteval.tasks.requests import Doc
 from lighteval.utils.language import Language
-
+from lighteval.metrics.utils.metric_utils import SampleLevelMetric, SamplingMethod
+import numpy as np
 
 # Prompt template adapted from
 # - simple-evals: https://github.com/openai/simple-evals/blob/6e84f4e2aed6b60f6a0c7b8f06bbbf4bfde72e58/math_eval.py#L17
@@ -49,7 +50,9 @@ C) {C}
 D) {D}
 """.strip()
 
-latex_gold_metric = multilingual_extractive_match_metric(
+latex_gold_metric = SampleLevelMetric(
+    metric_name="latex_gold_extractive_match",
+    sample_level_fn = MultilingualExtractiveMatchMetric(
     language=Language.ENGLISH,
     fallback_mode="first_match",
     precision=5,
@@ -57,9 +60,15 @@ latex_gold_metric = multilingual_extractive_match_metric(
     # Match boxed first before trying other regexes
     pred_extraction_target=(ExprExtractionConfig(), LatexExtractionConfig(boxed_match_priority=0)),
     aggregation_function=max,
+    ),
+    corpus_level_fn=np.mean,
+    category=SamplingMethod.GENERATIVE,
+    higher_is_better=True,
 )
 
-expr_gold_metric = multilingual_extractive_match_metric(
+expr_gold_metric = SampleLevelMetric(
+    metric_name="expr_gold_extractive_match",
+    sample_level_fn = MultilingualExtractiveMatchMetric(
     language=Language.ENGLISH,
     fallback_mode="first_match",
     precision=5,
@@ -67,13 +76,23 @@ expr_gold_metric = multilingual_extractive_match_metric(
     # Match boxed first before trying other regexes
     pred_extraction_target=(ExprExtractionConfig(), LatexExtractionConfig(boxed_match_priority=0)),
     aggregation_function=max,
+    ),
+    corpus_level_fn=np.mean,
+    category=SamplingMethod.GENERATIVE,
+    higher_is_better=True,
 )
 
-gpqa_metric = multilingual_extractive_match_metric(
+gpqa_metric = SampleLevelMetric(
+    metric_name="gqpa_extractive_match",
+    sample_level_fn = MultilingualExtractiveMatchMetric(
     language=Language.ENGLISH,
     gold_extraction_target=[IndicesExtractionConfig(prefix_for_extraction="NativeLetters")],
     pred_extraction_target=[IndicesExtractionConfig(prefix_for_extraction="NativeLetters")],
     precision=5,
+    ),
+    corpus_level_fn=np.mean,
+    category=SamplingMethod.GENERATIVE,
+    higher_is_better=True,
 )
 
 
@@ -140,8 +159,8 @@ def gpqa_prompt_fn(line, task_name: str = None):
 
 # Define tasks
 aime24 = LightevalTaskConfig(
-    name="aime24",
-    suite=["custom"],
+    name="custom_aime24",
+    # suite=["custom"],
     prompt_function=aime_prompt_fn,
     hf_repo="HuggingFaceH4/aime_2024",
     hf_subset="default",
@@ -150,12 +169,12 @@ aime24 = LightevalTaskConfig(
     few_shots_split=None,
     few_shots_select=None,
     generation_size=32768,
-    metric=[expr_gold_metric],
+    metrics=[expr_gold_metric],
     version=1,
 )
 aime25 = LightevalTaskConfig(
-    name="aime25",
-    suite=["custom"],
+    name="custom_aime25",
+    # suite=["custom"],
     prompt_function=aime_prompt_fn,
     hf_repo="yentinglin/aime_2025",
     hf_subset="default",
@@ -164,12 +183,12 @@ aime25 = LightevalTaskConfig(
     few_shots_split=None,
     few_shots_select=None,
     generation_size=32768,
-    metric=[expr_gold_metric],
+    metrics=[expr_gold_metric],
     version=1,
 )
 math_500 = LightevalTaskConfig(
-    name="math_500",
-    suite=["custom"],
+    name="custom_math_500",
+    # suite=["custom"],
     prompt_function=math_prompt_fn,
     hf_repo="HuggingFaceH4/MATH-500",
     hf_subset="default",
@@ -178,12 +197,12 @@ math_500 = LightevalTaskConfig(
     few_shots_split=None,
     few_shots_select=None,
     generation_size=32768,
-    metric=[latex_gold_metric],
+    metrics=[latex_gold_metric],
     version=1,
 )
 gpqa_diamond = LightevalTaskConfig(
-    name="gpqa:diamond",
-    suite=["custom"],
+    name="custom_gpqa_diamond",
+    # suite=["custom"],
     prompt_function=gpqa_prompt_fn,
     hf_repo="Idavidrein/gpqa",
     hf_subset="gpqa_diamond",
@@ -192,14 +211,14 @@ gpqa_diamond = LightevalTaskConfig(
     few_shots_split=None,
     few_shots_select=None,
     generation_size=32768,  # needed for reasoning models like R1
-    metric=[gpqa_metric],
+    metrics=[gpqa_metric],
     stop_sequence=[],  # no stop sequence, will use eos token
-    trust_dataset=True,
+    # trust_dataset=True,
     version=1,
 )
 minerva = LightevalTaskConfig(
-    name="minerva",
-    suite=["custom"],
+    name="custom_minerva",
+    # suite=["custom"],
     prompt_function=minerva_prompt_fn,
     hf_repo="knoveleng/Minerva-Math",
     hf_subset="default",
@@ -208,12 +227,12 @@ minerva = LightevalTaskConfig(
     few_shots_split=None,
     few_shots_select=None,
     generation_size=32768,
-    metric=[latex_gold_metric],
+    metrics=[latex_gold_metric],
     version=1,
 )
 amc23 = LightevalTaskConfig(
-    name="amc23",
-    suite=["custom"],
+    name="custom_amc23",
+    # suite=["custom"],
     prompt_function=amc_prompt_fn,
     hf_repo="knoveleng/AMC-23",
     hf_subset="default",
@@ -222,12 +241,12 @@ amc23 = LightevalTaskConfig(
     few_shots_split=None,
     few_shots_select=None,
     generation_size=32768,
-    metric=[expr_gold_metric],
+    metrics=[expr_gold_metric],
     version=1,
 )
 olympiadbench = LightevalTaskConfig(
-    name="olympiadbench",
-    suite=["custom"],
+    name="custom_olympiadbench",
+    # suite=["custom"],
     prompt_function=olympiadbench_prompt_fn,
     hf_repo="knoveleng/OlympiadBench",
     hf_subset="default",
@@ -236,7 +255,7 @@ olympiadbench = LightevalTaskConfig(
     few_shots_split=None,
     few_shots_select=None,
     generation_size=32768,
-    metric=[latex_gold_metric],
+    metrics=[latex_gold_metric],
     version=1,
 )
 
