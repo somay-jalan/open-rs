@@ -207,6 +207,8 @@ def main(script_args, training_args, model_args):
         use_cache=False if training_args.gradient_checkpointing else True,
     )
     training_args.model_init_kwargs = model_kwargs
+    # training_args.disable_sliding_window = getattr(model_args, "disable_sliding_window", False)
+    training_args.vllm_enable_prefix_caching = False
 
     #############################
     # Initialize the GRPO trainer
