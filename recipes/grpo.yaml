@@ -36,7 +36,7 @@ max_completion_length: 2048d
 max_steps: 500
 num_generations: 4
 num_train_epochs: 1
-output_dir: data/OpenRS-DeepSeekGRPO-accuracy
+output_dir: checkpoints_data/OpenRS-DeepSeekGRPO-accuracy
 overwrite_output_dir: true
 per_device_eval_batch_size: 4
 per_device_train_batch_size: 4
