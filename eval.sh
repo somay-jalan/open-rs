@@ -1,7 +1,10 @@
 #!/bin/sh
 # Base model configuration
-modelname=TinyLlamaGRPO-accuracy
-BASE_MODEL="data/OpenRS-TinyLlamaGRPO-accuracy"
+modelname=DeepSeekPPOv1
+BASE_MODEL="checkpoints_data/OpenRS-PPO_v1"
+
+# modelname=TinyLlamaGRPO-accuracy
+# BASE_MODEL="checkpoints_data/OpenRS-TinyLlamaGRPO-accuracy"
 NUM_GPUS=4
 BASE_MODEL_ARGS="dtype=bfloat16,data_parallel_size=$NUM_GPUS,gpu_memory_utilization=0.8,generation_parameters={max_new_tokens:32768,temperature:0.6,top_p:0.95}"
 # Define evaluation tasks
@@ -20,7 +23,7 @@ get_steps() {
     exp=$1
     
     case $exp in
-        1) echo "100 200 300 400" ;;
+        1) echo "50 100 150 200 250" ;;
         2) echo "50 100 150 200 250 300 350 400" ;;
         3) echo "50 100 150 200 250 300 350 400" ;;
         *) echo "" ;;
