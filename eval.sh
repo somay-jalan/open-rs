@@ -1,7 +1,7 @@
 #!/bin/sh
 # Base model configuration
-modelname=DeepSeekPPOv1
-BASE_MODEL="checkpoints_data/OpenRS-PPO_v1"
+modelname=TinyLlamaPPOv1
+BASE_MODEL="checkpoints_data/OpenRS-PPO_tiny_llama"
 
 # modelname=TinyLlamaGRPO-accuracy
 # BASE_MODEL="checkpoints_data/OpenRS-TinyLlamaGRPO-accuracy"
@@ -23,7 +23,7 @@ get_steps() {
     exp=$1
     
     case $exp in
-        1) echo "50 100 150 200 250" ;;
+        1) echo "50 100 150 200 250 292" ;;
         2) echo "50 100 150 200 250 300 350 400" ;;
         3) echo "50 100 150 200 250 300 350 400" ;;
         *) echo "" ;;
